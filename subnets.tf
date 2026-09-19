@@ -4,11 +4,12 @@ resource "aws_subnet" "public_1" {
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true
 
-  tags = {
-    Name        = "sre-public-subnet-1"
-    Environment = "learning"
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "sre-public-subnet-1"
+    }
+  )
 }
 
 resource "aws_subnet" "public_2" {
@@ -17,11 +18,12 @@ resource "aws_subnet" "public_2" {
   availability_zone       = "us-east-1b"
   map_public_ip_on_launch = true
 
-  tags = {
-    Name        = "sre-public-subnet-2"
-    Environment = "learning"
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "sre-public-subnet-2"
+    }
+  )
 }
 resource "aws_subnet" "private_1" {
   vpc_id                  = aws_vpc.sre_vpc.id
@@ -29,11 +31,12 @@ resource "aws_subnet" "private_1" {
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = false
 
-  tags = {
-    Name        = "sre-private-subnet-1"
-    Environment = "learning"
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "sre-private-subnet-1"
+    }
+  )
 }
 
 resource "aws_subnet" "private_2" {
@@ -42,9 +45,10 @@ resource "aws_subnet" "private_2" {
   availability_zone       = "us-east-1b"
   map_public_ip_on_launch = false
 
-  tags = {
-    Name        = "sre-private-subnet-2"
-    Environment = "learning"
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "sre-private-subnet-2"
+    }
+  )
 }

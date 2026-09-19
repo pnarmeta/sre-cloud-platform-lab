@@ -1,11 +1,12 @@
 resource "aws_internet_gateway" "sre_igw" {
   vpc_id = aws_vpc.sre_vpc.id
 
-  tags = {
-    Name        = "sre-learning-igw"
-    Environment = "learning"
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "sre-learning-igw"
+    }
+  )
 }
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.sre_vpc.id
@@ -15,11 +16,12 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.sre_igw.id
   }
 
-  tags = {
-    Name        = "sre-public-route-table"
-    Environment = "learning"
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "sre-public-route-table"
+    }
+  )
 }
 resource "aws_route_table_association" "public_1" {
   subnet_id      = aws_subnet.public_1.id
@@ -32,11 +34,12 @@ resource "aws_route_table_association" "public_2" {
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.sre_vpc.id
 
-  tags = {
-    Name        = "sre-private-route-table"
-    Environment = "learning"
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "sre-private-route-table"
+    }
+  )
 }
 resource "aws_route_table_association" "private_1" {
   subnet_id      = aws_subnet.private_1.id
