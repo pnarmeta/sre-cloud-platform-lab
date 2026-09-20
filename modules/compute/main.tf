@@ -72,6 +72,10 @@ data "aws_ami" "amazon_linux" {
     values = ["hvm"]
   }
 }
+resource "aws_iam_role_policy_attachment" "ssm_core" {
+  role       = aws_iam_role.ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
 resource "aws_instance" "web_server" {
   ami           = data.aws_ami.amazon_linux.id
   instance_type = var.instance_type
