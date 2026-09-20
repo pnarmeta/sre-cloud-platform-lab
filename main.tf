@@ -9,3 +9,11 @@ module "network" {
   project_name = var.project_name
   subnets      = var.subnets
 }
+module "compute" {
+  source = "./modules/compute"
+
+  vpc_id       = module.network.vpc_id
+  subnet_id    = module.network.public_subnet_ids[0]
+  environment  = var.environment
+  project_name = var.project_name
+}
